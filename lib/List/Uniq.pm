@@ -97,7 +97,7 @@ sub uniq
         if( $opts->{compare} ) {
             unless( 'CODE' eq ref $opts->{compare} ) {
                 require Carp;
-                Carp::croak "compare option is not a coderef";
+                Carp::croak "compare option is not a CODEREF";
             }
             @elements = sort $opts->{compare}, @elements;
         }
