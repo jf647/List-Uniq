@@ -11,7 +11,6 @@ List::Uniq - extract the unique elements of a list
   use List::Uniq ':all';
 
   @uniq = uniq(@list);
-  @uniq = uniq_sorted(@sorted);
 
   $list = [ qw|foo bar baz foo| ];
   $uniq = uniq($list);
@@ -35,18 +34,14 @@ our $VERSION = '0.10';
 our @EXPORT;
 our @EXPORT_OK;
 our %EXPORT_TAGS;
-$EXPORT_TAGS{all} = [ qw|uniq uniq_sorted| ];
+$EXPORT_TAGS{all} = [ qw|uniq| ];
 Exporter::export_ok_tags('all');
 
 =head1 FUNCTIONS
 
 =head2 uniq( { OPTIONS }, ele1, ele2, ..., eleN )
 
-uniq() takes a list (or reference to a list) of elements and returns the
-unique elements of the list.  The return value is a list of the unique
-elements if called in list context or a reference to a list of unique
-elements if called in scalar context.
-
+uniq() takes a list of elements and returns the unique elements of the list. 
 Each element may be a scalar value or a reference to a list.  List
 references will be flattened before the unique filter is applied.
 
@@ -56,18 +51,11 @@ option set are:
 
 =over 4
 
-=item * sorted
-
-If set to a true value, the elements of the list are presumed to be
-pre-sorted.  This allows the use of a technique that uses less memory but
-only eliminates adjacent duplicates (as with the B<uniq> command).
-
 =item * sort
 
 If set to a true value, the unique elements of the list will be returned
 sorted.  Perl's default sort will be used unless the B<compare> option is
-also passed.  If the B<sorted> option is set, any value of this option is
-ignored, as the technique used in that case does not shuffle the elements.
+also passed.
 
 =item * compare
 
@@ -75,50 +63,68 @@ A code reference that will be used to sort the elements of the list if the
 B<sort> option is set.  Passing a non-coderef will cause B<uniq> to throw an
 exception.
 
+The code ref will be passed a pair of list elements to be compared and
+should return the same values as the L<cmp|perlop/"Equality Operators">
+operator.
+
+Using a custom sort slows things down because the sort routine will be
+outside of the List::Uniq package.  This requires that the pairs to be
+compared be passed as parameters to the sort routine, not set as package
+globals (see L<perlfunc/sort>).  If speed is a concern, you are better off
+sorting the return of B<uniq> yourself.
+
 =back
+
+The return value is a list of the unique elements if called in list context
+or a reference to a list of unique elements if called in scalar context.
+
+=cut
 
 sub uniq
 {
 
-    # check for options
-    my $options;
+    # pull options off the front of the list
+    my $opts;
     if( ref $_[0] eq 'HASH' ) {
-        $options = shift @_;
+        $opts = shift @_;
     }
 
     # flatten list references
-    my @elements;
-    
-    # dispatch to the proper technique based upon options
-    
-    # sort before returning if so desired
-    if( $opts{sort} ) {
-        if( $opts{compare} ) {
-            unless( 'CODE' eq ref $opts{compare} ) {
-                require Carp;
-                Carp::croak "compare option is not a coderef";
-            }
-            @elements = sort $opts{compare} @elements;
+    my $i = 0;
+    for( @_ ) {
+        if( 'ARRAY' eq ref $_ ) {
+            splice @_, $i, 1, @$_;
         }
-        else {
-            @elements = sort @elements;
-        }
+        $i++;
     }
     
-    # return a list or list reference based on calling context
+    # sort the elements
+    my %seen;
+    @_ = grep { ! $seen{$_} ++ } @_;
+    
+    # sort before returning if so desired
+    my @elements;
+    if( $opts->{sort} ) {
+        if( $opts->{compare} ) {
+            unless( 'CODE' eq ref $opts->{compare} ) {
+                require Carp;
+                Carp::croak "compare option is not a CODEREF";
+            }
+            @elements = sort { $opts->{compare}->($a,$b) } @_;
+        }
+        else {
+            @elements = sort @_;
+        }
+    }
+    else {
+        @elements = @_;
+    }
+    
+    # return a list or list ref
     return wantarray ? @elements : \@elements;
+    
 
 }
-
-=head2 uniq_sorted()
-
-This is a convenience function that acts the same as:
-
-  uniq( { sorted => 1 }, @list );
-
-=cut
-
-sub uniq_sorted { uniq( { sorted => 1 }, @_ ) }
 
 # keep require happy
 1;
@@ -133,7 +139,7 @@ __END__
 
 Nothing by default.
 
-Optionally the B<uniq> and B<uniq_sorted> functions.
+Optionally the B<uniq> function.
 
 Everything with the B<:all> tag.
 
