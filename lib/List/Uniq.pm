@@ -42,11 +42,7 @@ Exporter::export_ok_tags('all');
 
 =head2 uniq( { OPTIONS }, ele1, ele2, ..., eleN )
 
-uniq() takes a list (or reference to a list) of elements and returns the
-unique elements of the list.  The return value is a list of the unique
-elements if called in list context or a reference to a list of unique
-elements if called in scalar context.
-
+uniq() takes a list of elements and returns the unique elements of the list. 
 Each element may be a scalar value or a reference to a list.  List
 references will be flattened before the unique filter is applied.
 
@@ -77,13 +73,18 @@ exception.
 
 =back
 
+The return value is a list of the unique elements if called in list context
+or a reference to a list of unique elements if called in scalar context.
+
+=cut
+
 sub uniq
 {
 
-    # check for options
-    my $options;
+    # pull options off the front of the list
+    my $opts;
     if( ref $_[0] eq 'HASH' ) {
-        $options = shift @_;
+        $opts = shift @_;
     }
 
     # flatten list references
@@ -92,13 +93,13 @@ sub uniq
     # dispatch to the proper technique based upon options
     
     # sort before returning if so desired
-    if( $opts{sort} ) {
-        if( $opts{compare} ) {
-            unless( 'CODE' eq ref $opts{compare} ) {
+    if( $opts->{sort} ) {
+        if( $opts->{compare} ) {
+            unless( 'CODE' eq ref $opts->{compare} ) {
                 require Carp;
                 Carp::croak "compare option is not a coderef";
             }
-            @elements = sort $opts{compare} @elements;
+            @elements = sort $opts->{compare}, @elements;
         }
         else {
             @elements = sort @elements;
