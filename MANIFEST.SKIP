@@ -1,0 +1,12 @@
+^_build
+^Build$
+^blib
+~$
+\.bak$
+^MANIFEST\.SKIP$
+CVS
+\.tar\.gz$
+acl\.pl
+\.releaserc
+.svn/.*$
+^cover_db
