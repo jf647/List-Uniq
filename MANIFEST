@@ -12,5 +12,5 @@ t/03_pod_coverage.t
 t/04_breakpoints.t
 t/05_basic.t
 t/06_context.t
+t/07_sort.t
 t/08_flatten.t
-t/09_sort.t
