@@ -13,5 +13,9 @@ Changelog for List::Uniq
 
 	Fixed rt.cpan.org #37837
 
+0.12	July 22nd 2008
+
+	Fixed 5.10 incompatibility regarding warnings/croak
+
 #
 # EOF

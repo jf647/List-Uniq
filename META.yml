@@ -1,6 +1,6 @@
 ---
 name: List-Uniq
-version: 0.11
+version: 0.12
 author:
   - |-
     James FitzGibbon, Primus Telecommunications Canada Inc.
@@ -12,8 +12,8 @@ resources:
 provides:
   List::Uniq:
     file: lib/List/Uniq.pm
-    version: 0.11
-generated_by: Module::Build version 0.2808
+    version: 0.12
+generated_by: Module::Build version 0.2807
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html
   version: 1.2

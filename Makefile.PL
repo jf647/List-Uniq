@@ -2,11 +2,11 @@
 use ExtUtils::MakeMaker;
 WriteMakefile
 (
-          'PL_FILES' => {},
-          'INSTALLDIRS' => 'site',
           'NAME' => 'List::Uniq',
-          'EXE_FILES' => [],
           'VERSION_FROM' => 'lib/List/Uniq.pm',
-          'PREREQ_PM' => {}
+          'PREREQ_PM' => {},
+          'INSTALLDIRS' => 'site',
+          'EXE_FILES' => [],
+          'PL_FILES' => {}
         )
 ;
