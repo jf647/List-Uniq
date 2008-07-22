@@ -2,12 +2,16 @@
 # $Id$
 #
 
-Changelog for List::Util
+Changelog for List::Uniq
 ------------------------
 
 0.10    September 29th 2004
 
         Initial release to CPAN
+
+0.11	July 22nd 2008
+
+	Fixed rt.cpan.org #37837
 
 #
 # EOF

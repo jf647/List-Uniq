@@ -28,7 +28,7 @@ use base 'Exporter';
 use strict;
 use warnings;
 
-our $VERSION = '0.10';
+our $VERSION = '0.11';
 
 # set up exports
 our @EXPORT;
@@ -100,7 +100,10 @@ sub uniq
     
     # sort the elements
     my %seen;
-    @_ = grep { ! $seen{$_} ++ } @_;
+    {
+        no warnings 'uninitialized';
+        @_ = grep { ! $seen{$_} ++ } @_;
+    }
     
     # sort before returning if so desired
     my @elements;
@@ -122,7 +125,6 @@ sub uniq
     
     # return a list or list ref
     return wantarray ? @elements : \@elements;
-    
 
 }
 
@@ -167,7 +169,7 @@ Hopefully you do too.
 
 =head1 COPYRIGHT
 
-Copyright (c) 2004 Primus Telecommunications Canada Inc.
+Copyright (c) 2004-2008 Primus Telecommunications Canada Inc.
 All Rights Reserved.
 
 This library is free software; you may use it under the same

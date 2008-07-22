@@ -1,14 +1,19 @@
---- #YAML:1.0
+---
 name: List-Uniq
-version: 0.10
+version: 0.11
 author:
   - |-
     James FitzGibbon, Primus Telecommunications Canada Inc.
     <jfitzgibbon@primustel.ca>
 abstract: extract the unique elements of a list
 license: perl
+resources:
+  license: http://dev.perl.org/licenses/
 provides:
   List::Uniq:
     file: lib/List/Uniq.pm
-    version: 0.10
-generated_by: Module::Build version 0.25_02
+    version: 0.11
+generated_by: Module::Build version 0.2808
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.2.html
+  version: 1.2
