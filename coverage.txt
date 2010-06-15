@@ -1,13 +1,28 @@
-Reading database from /usr/home/james/perl/List-Uniq/trunk/cover_db
+t/01_use..............ok
+t/02_pod..............ok
+t/03_pod_coverage.....skipped
+        all skipped: Test::Pod::Coverage 1.00 required for testing POD coverage
+t/04_breakpoints......skipped
+        all skipped: Test::NoBreakpoints 0.10 required for testing
+t/05_basic............ok
+t/06_context..........ok
+t/07_sort.............ok
+t/08_flatten..........ok
+t/09_undef_element....ok
+t/10_rt_58389.........ok
+All tests successful, 2 tests skipped.
+Files=10, Tests=30,  4 wallclock secs ( 3.38 cusr +  0.14 csys =  3.52 CPU)
+cover
+Reading database from /home/james/List-Uniq/cover_db
 
 
----------------------------- ------ ------ ------ ------ ------ ------ ------
-File                           stmt branch   cond    sub    pod   time  total
----------------------------- ------ ------ ------ ------ ------ ------ ------
-blib/lib/List/Uniq.pm         100.0  100.0    n/a  100.0  100.0  100.0  100.0
-Total                         100.0  100.0    n/a  100.0  100.0  100.0  100.0
----------------------------- ------ ------ ------ ------ ------ ------ ------
+----------------------------------- ------ ------ ------ ------ ------ ------
+File                                  stmt   bran   cond    sub   time  total
+----------------------------------- ------ ------ ------ ------ ------ ------
+blib/lib/List/Uniq.pm                100.0  100.0    n/a  100.0  100.0  100.0
+Total                                100.0  100.0    n/a  100.0  100.0  100.0
+----------------------------------- ------ ------ ------ ------ ------ ------
 
 
-Writing HTML output to /usr/home/james/perl/List-Uniq/trunk/cover_db/coverage.html ...
+Writing HTML output to /home/james/List-Uniq/cover_db/coverage.html ...
 done.

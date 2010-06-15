@@ -11,11 +11,16 @@ Changelog for List::Uniq
 
 0.11	July 22nd 2008
 
-	Fixed rt.cpan.org #37837
+	Fixed rt.cpan.org #37837: suppress uninitalized value warnings 
 
 0.12	July 22nd 2008
 
 	Fixed 5.10 incompatibility regarding warnings/croak
+
+0.13    June 15th 2010
+
+    Fixed rt.cpan.org #58389: array refs following empty array refs
+    weren't being flattened properly
 
 #
 # EOF

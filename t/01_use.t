@@ -14,7 +14,7 @@ BEGIN {
 }
 
 use_ok('List::Uniq');
-is($List::Uniq::VERSION, '0.12', 'check module version');
+is($List::Uniq::VERSION, '0.13', 'check module version');
 
 #
 # EOF

@@ -23,12 +23,14 @@ FUNCTIONS
     options that alter the way in which the unique filter is applied. The
     keys of the option set are:
 
-    * sort
+    *   sort
+
         If set to a true value, the unique elements of the list will be
         returned sorted. Perl's default sort will be used unless the compare
         option is also passed.
 
-    * compare
+    *   compare
+
         A code reference that will be used to sort the elements of the list
         if the sort option is set. Passing a non-coderef will cause uniq to
         throw an exception.
@@ -62,8 +64,7 @@ SEE ALSO
     auto-vivified and thus not easily tied to Array::Unique.
 
 AUTHOR
-    James FitzGibbon, Primus Telecommunications Canada Inc.
-    <jfitzgibbon@primustel.ca>
+    James FitzGibbon <james+perl@nadt.net>
 
 CREDITS
     The idioms used to unique lists are taken from recipe 4.7 in the *Perl
@@ -74,8 +75,11 @@ CREDITS
     Hopefully you do too.
 
 COPYRIGHT
-    Copyright (c) 2004-2008 Primus Telecommunications Canada Inc. All Rights
-    Reserved.
+    Copyright (c) 2004-2008 Primus Telecommunications Canada Inc.
+
+    Copyright (c) 2008-2010 James FitzGibbon
+
+    All Rights Reserved.
 
     This library is free software; you may use it under the same terms as
     perl itself.

@@ -28,7 +28,7 @@ use base 'Exporter';
 use strict;
 use warnings;
 
-our $VERSION = '0.12';
+our $VERSION = '0.13';
 
 # set up exports
 our @EXPORT;
@@ -93,7 +93,16 @@ sub uniq
     my $i = 0;
     for( @_ ) {
         if( 'ARRAY' eq ref $_ ) {
-            splice @_, $i, 1, @$_;
+            if( @$_ ) {
+              splice @_, $i, 1, @$_;
+            } else {
+              # if the referenced array is empty, artificially
+              # set $_ and re-do the loop to avoid skipping over
+              # the element that follows the empty arrayref
+              splice @_, $i, 1;
+              $_ = $_[$i];
+              redo;
+            }
         }
         $i++;
     }
@@ -155,8 +164,8 @@ auto-vivified and thus not easily tied to Array::Unique.
 
 =head1 AUTHOR
 
-James FitzGibbon, Primus Telecommunications Canada Inc.
-<jfitzgibbon@primustel.ca>
+James FitzGibbon
+<james+perl@nadt.net>
 
 =head1 CREDITS
 
@@ -170,6 +179,9 @@ Hopefully you do too.
 =head1 COPYRIGHT
 
 Copyright (c) 2004-2008 Primus Telecommunications Canada Inc.
+
+Copyright (c) 2008-2010 James FitzGibbon
+
 All Rights Reserved.
 
 This library is free software; you may use it under the same
