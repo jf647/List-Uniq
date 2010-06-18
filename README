@@ -29,6 +29,19 @@ FUNCTIONS
         returned sorted. Perl's default sort will be used unless the compare
         option is also passed.
 
+    *   flatten
+
+        If set to a true value, array references in the list will be
+        recursively flattened, such that
+
+          ( 'foo', [ [ 'bar' ] ], [ [ [ 'baz' ] ] ] )
+
+        becomes
+
+          ( 'foo', 'bar', 'baz' )
+
+        If options are not provided, flatten defaults to true.
+
     *   compare
 
         A code reference that will be used to sort the elements of the list

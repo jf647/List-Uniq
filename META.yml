@@ -1,6 +1,6 @@
 ---
 name: List-Uniq
-version: 0.13
+version: 0.20
 author:
   - |-
     James FitzGibbon
@@ -12,7 +12,7 @@ resources:
 provides:
   List::Uniq:
     file: lib/List/Uniq.pm
-    version: 0.13
+    version: 0.20
 generated_by: Module::Build version 0.280801
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html

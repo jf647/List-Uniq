@@ -1,5 +1,5 @@
 #
-# $Id: 05_basic.t 4065 2004-11-01 15:38:09Z james $
+# $Id$
 #
 
 use strict;

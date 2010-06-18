@@ -16,3 +16,5 @@ t/07_sort.t
 t/08_flatten.t
 t/09_undef_element.t
 t/10_rt_58389.t
+t/11_recursive_arrayref.t
+t/12_flatten.t

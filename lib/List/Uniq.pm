@@ -28,7 +28,7 @@ use base 'Exporter';
 use strict;
 use warnings;
 
-our $VERSION = '0.13';
+our $VERSION = '0.20';
 
 # set up exports
 our @EXPORT;
@@ -42,8 +42,7 @@ Exporter::export_ok_tags('all');
 =head2 uniq( { OPTIONS }, ele1, ele2, ..., eleN )
 
 uniq() takes a list of elements and returns the unique elements of the list. 
-Each element may be a scalar value or a reference to a list.  List
-references will be flattened before the unique filter is applied.
+Each element may be a scalar value or a reference to a list.
 
 If the first element is a hash reference it is taken to be a set of options
 that alter the way in which the unique filter is applied.  The keys of the
@@ -56,6 +55,21 @@ option set are:
 If set to a true value, the unique elements of the list will be returned
 sorted.  Perl's default sort will be used unless the B<compare> option is
 also passed.
+
+B<sort> defaults to false.
+
+=item * flatten
+
+If set to a true value, array references in the list will be recursively
+flattened, such that
+
+  ( 'foo', [ [ 'bar' ] ], [ [ [ 'baz', 'quux' ] ] ] )
+
+becomes
+
+  ( 'foo', 'bar', 'baz', 'quux' )
+
+B<flatten> defaults to true.
 
 =item * compare
 
@@ -80,6 +94,8 @@ or a reference to a list of unique elements if called in scalar context.
 
 =cut
 
+my %default_opts = ( sort => 0, flatten => 1 );
+
 sub uniq
 {
 
@@ -88,48 +104,39 @@ sub uniq
     if( ref $_[0] eq 'HASH' ) {
         $opts = shift @_;
     }
-
-    # flatten list references
-    my $i = 0;
-    for( @_ ) {
-        if( 'ARRAY' eq ref $_ ) {
-            if( @$_ ) {
-              splice @_, $i, 1, @$_;
-            } else {
-              # if the referenced array is empty, artificially
-              # set $_ and re-do the loop to avoid skipping over
-              # the element that follows the empty arrayref
-              splice @_, $i, 1;
-              $_ = $_[$i];
-              redo;
-            }
-        }
-        $i++;
+    for my $opt( keys %default_opts ) {
+      unless( defined $opts->{$opt} ) {
+        $opts->{$opt} = $default_opts{$opt};
+      }
     }
     
-    # sort the elements
+    # flatten list references
+    if( $opts->{flatten} ) {
+      my $unwrap;
+      $unwrap = sub { map { 'ARRAY' eq ref $_ ? $unwrap->( @$_ ) : $_ } @_ };
+      @_ = $unwrap->( \@_ );
+    }
+    
+    # uniq the elements
+    my @elements;
     my %seen;
     {
         no warnings 'uninitialized';
-        @_ = grep { ! $seen{$_} ++ } @_;
+        @elements = grep { ! $seen{$_} ++ } @_;
     }
     
     # sort before returning if so desired
-    my @elements;
     if( $opts->{sort} ) {
         if( $opts->{compare} ) {
             unless( 'CODE' eq ref $opts->{compare} ) {
                 require Carp;
                 Carp::croak("compare option is not a CODEREF");
             }
-            @elements = sort { $opts->{compare}->($a,$b) } @_;
+            @elements = sort { $opts->{compare}->($a,$b) } @elements;
         }
         else {
-            @elements = sort @_;
+            @elements = sort @elements;
         }
-    }
-    else {
-        @elements = @_;
     }
     
     # return a list or list ref
