@@ -1,17 +1,19 @@
-t/01_use..............ok
-t/02_pod..............ok
-t/03_pod_coverage.....skipped
+t/01_use...................ok
+t/02_pod...................ok
+t/03_pod_coverage..........skipped
         all skipped: Test::Pod::Coverage 1.00 required for testing POD coverage
-t/04_breakpoints......skipped
+t/04_breakpoints...........skipped
         all skipped: Test::NoBreakpoints 0.10 required for testing
-t/05_basic............ok
-t/06_context..........ok
-t/07_sort.............ok
-t/08_flatten..........ok
-t/09_undef_element....ok
-t/10_rt_58389.........ok
+t/05_basic.................ok
+t/06_context...............ok
+t/07_sort..................ok
+t/08_flatten...............ok
+t/09_undef_element.........ok
+t/10_rt_58389..............ok
+t/11_recursive_arrayref....ok
+t/12_flatten...............ok
 All tests successful, 2 tests skipped.
-Files=10, Tests=30,  4 wallclock secs ( 3.38 cusr +  0.14 csys =  3.52 CPU)
+Files=12, Tests=39,  5 wallclock secs ( 4.14 cusr +  0.09 csys =  4.23 CPU)
 cover
 Reading database from /home/james/List-Uniq/cover_db
 
