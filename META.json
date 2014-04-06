@@ -1,0 +1,36 @@
+{
+   "abstract" : "extract the unique elements of a list",
+   "author" : [
+      "James FitzGibbon\n<james+perl@nadt.net>"
+   ],
+   "dynamic_config" : 1,
+   "generated_by" : "Module::Build version 0.38, CPAN::Meta::Converter version 2.110440",
+   "license" : [
+      "perl_5"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "List-Uniq",
+   "prereqs" : {
+      "configure" : {
+         "requires" : {
+            "Module::Build" : "0.38"
+         }
+      }
+   },
+   "provides" : {
+      "List::Uniq" : {
+         "file" : "lib/List/Uniq.pm",
+         "version" : "v0.21.0"
+      }
+   },
+   "release_status" : "stable",
+   "resources" : {
+      "license" : [
+         "http://dev.perl.org/licenses/"
+      ]
+   },
+   "version" : "v0.21.0"
+}

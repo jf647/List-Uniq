@@ -18,3 +18,4 @@ t/09_undef_element.t
 t/10_rt_58389.t
 t/11_recursive_arrayref.t
 t/12_flatten.t
+META.json
